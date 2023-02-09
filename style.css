@@ -1,0 +1,73 @@
+* {
+  font-family: roboto, sans-serif;
+}
+
+* button {
+  all: unset; 
+  color: white;
+  font-size: 30px;
+  cursor:pointer;
+}
+
+
+.container {
+display: flex;
+background-color: rgb(207, 212, 212);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 80px);
+  grid-template-rows: repeat(6, 100px);
+  grid-gap: 3px;
+}
+
+#equals {
+  grid-column: span 2;
+  background-color: rgb(75, 115, 129) !important;
+}
+
+.grid-container button,
+.grid-container div {
+  background: rgb(75, 105, 129);
+  /* width: auto; */
+  text-align: center;
+  border-radius: 4px;
+  margin: 1px;
+  color: white;
+}
+
+.display {
+  grid-column: 1/-1;
+  padding-right: 15px;
+}
+
+.display #top-display{
+  text-align: right;
+  color: rgba(255, 255, 255, 0.712);
+  margin: 0px;
+  font-size: 30px;
+
+}
+
+.display #bottom-display {
+  text-align: right;
+  margin: 0px;
+  margin-top: 5px;
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.grid-container .op {
+  color: rgb(255, 255, 255);
+  background-color: rgb(75, 127, 129);
+}
+
+.hovered {
+  
+}
+
+.selected {
+
+}
+
