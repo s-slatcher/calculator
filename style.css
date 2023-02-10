@@ -7,8 +7,16 @@
   color: white;
   font-size: 30px;
   cursor:pointer;
+  transition: 0.1s;
 }
 
+* button:hover {
+  filter: saturate(2);
+}
+.selected {
+  filter: saturate(3);
+  
+}
 
 .container {
 display: flex;
@@ -50,7 +58,7 @@ background-color: rgb(207, 212, 212);
 
 }
 
-.display #bottom-display {
+.display #main-display {
   text-align: right;
   margin: 0px;
   margin-top: 5px;
@@ -58,16 +66,11 @@ background-color: rgb(207, 212, 212);
   font-weight: 500;
 }
 
-.grid-container .op {
+.grid-container .op,
+.grid-container .other {
   color: rgb(255, 255, 255);
   background-color: rgb(75, 127, 129);
 }
 
-.hovered {
-  
-}
 
-.selected {
-
-}
 

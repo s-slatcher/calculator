@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <script src="calculator.js"></script>
+    <script src="calculator.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,28 +13,28 @@
         
         <div class="grid-container">
             <div class="display">
-                <p id="top-display">50 +</p>
-                <p id="bottom-display">875</p>
+                <p id="top-display">Calculator</p>
+                <p id="main-display"></p>
             </div>
-            <button class="num" id="num7">7</button>
-            <button class="num" id="num8">8</button>
-            <button class="num" id="num9">9</button>
-            <button class="op" id="clear">C</button>
-            <button class="op" id="all-clear">AC</button>
-            <button class="num" id="num4">4</button>
-            <button class="num" id="num5">5</button>
-            <button class="num" id="num6">6</button>
-            <button class="op" id="divde">/</button>
+            <button class="update" id="num-7">7</button>
+            <button class="update" id="num-8">8</button>
+            <button class="update" id="num-9">9</button>
+            <button class="update other" id="clear">C</button>
+            <button class="update other" id="all-clear">AC</button>
+            <button class="update" id="num-4">4</button>
+            <button class="update" id="num-5">5</button>
+            <button class="update" id="num-6">6</button>
+            <button class="op" id="divide">/</button>
             <button class="op" id="multiply">x</button>
-            <button class="num" id="num1">1</button>
-            <button class="num" id="num2">2</button>
-            <button class="num" id="num3">3</button>
+            <button class="update" id="num-1">1</button>
+            <button class="update" id="num-2">2</button>
+            <button class="update" id="num-3">3</button>
             <button class="op" id="plus">+</button>
             <button class="op" id="minus">-</button>
-            <button class="op" id="change-sign">+/-</button>
-            <button class="num" id="num0">0</button>
-            <button class="op" id="decimal">.</button>
-            <button class="op" id="equals">=</button>         
+            <button class="update other" id="change-sign">+/-</button>
+            <button class="update" id="num-0">0</button>
+            <button class="update other" id="decimal">.</button>
+            <button class="other" id="equals">=</button>         
         </div>
     </div>
 </body>
