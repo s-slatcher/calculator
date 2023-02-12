@@ -4,8 +4,6 @@ let mainDisplay = document.querySelector("#main-display")
 let topDisplay = document.querySelector("#top-display");
 let equals = document.getElementById("equals");
 
-
-
 let opSelected = "";
 let updaterSelected = "";
 let sign = "";
@@ -31,9 +29,9 @@ buttonsOp.forEach(e => {
 
 buttonsUpdate.forEach(e => {
     e.addEventListener('click', e => {
-        cleared = false;
         if (topDisplay.textContent && (topDisplay.textContent == topDisplayNumber)) allClear();
         updateDisplay(e.target);
+        cleared = false; 
     } , false);
 })
 
@@ -48,6 +46,7 @@ function allClear(){
 function updateDisplay(button){
         let tempDisplay = currentDisplay.replace("-","");
         let isEmpty = !tempDisplay.length;
+        console.log(`${isEmpty}: ${tempDisplay.length}`);
         if (mainDisplay.textContent.length > 12) return;
         if ([1,2,3,4,5,6,7,8,9,0].includes(+button.textContent)){
             updaterSelected = button.textContent;
@@ -66,6 +65,10 @@ function updateDisplay(button){
                 break;
             case "clear":
                 tempDisplay = tempDisplay.slice(0,-1);
+                if (tempDisplay.endsWith(".")) {
+                    tempDisplay = tempDisplay.slice(0,-1);
+                }
+                isEmpty = !tempDisplay.length;
                 if (isEmpty) sign = "";
                 break;
             case "all-clear":
@@ -84,22 +87,18 @@ function operateOnDisplay(op){
     if (cleared) {
         return;
     }
-
     if (topDisplay.textContent === "" && mainDisplay.textContent !== ""){
         topDisplayNumber = currentDisplay;
-        topDisplay.textContent = `${topDisplayNumber} ${op.textContent}`;     //fill top display then clear out bottom
+        topDisplay.textContent = `${topDisplayNumber} ${op.textContent}`;     
         currentDisplay = "";
         mainDisplay.textContent = currentDisplay;
         return;
     }
-    
     if (currentDisplay == ""){
         topDisplay.textContent = `${topDisplayNumber} ${op.textContent}`
         return;
     }
-
     evaluate(op);
-    
 }
 
 function evaluate(op){
@@ -125,14 +124,17 @@ function evaluate(op){
             break;
     }
     if (op.textContent == "="){
-        topDisplay.textContent = answer.toString();
+        topDisplay.textContent = round(answer);
+        //answer.toString();
         console.log(answer);
     } else {
-        topDisplay.textContent = `${answer} ${op.textContent}`;
+        topDisplay.textContent = `${round(answer)} ${op.textContent}`;
     }
     currentDisplay = "";
     mainDisplay.textContent = currentDisplay;
-    topDisplayNumber = answer;
+    topDisplayNumber = round(answer);
     
 }
-
+function round(answer) { // rounding fix suggested on MDN
+    return +(Math.round(answer + "e+8")  + "e-8");
+}
