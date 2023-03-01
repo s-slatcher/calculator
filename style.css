@@ -1,1 +1,55 @@
-/* redo css */
+* {
+    font-family: roboto, sans-serif;
+    background-color: rgb(0, 0, 0);
+    /* outline: 1px solid red; */
+  }
+  
+
+  .container {
+  }
+
+  .grid-container {
+    display: grid;
+    background-color: rgb(70, 70, 70);
+    padding: 15px;
+    grid-template-columns: repeat(5, 2fr);
+    grid-template-rows: repeat(5, 2fr);
+    grid-gap:5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 380px;
+    height: 500px;
+  }
+
+  .display {
+    background-color: inherit;
+    grid-column: 1/-1;
+    border: 5px solid rgb(59,59,59);
+    border-radius: 10px;
+  }  
+  #top-display {
+    background-color: inherit;
+    height: 35%;
+    margin: 0;;
+  }
+  
+  * button {
+    all: unset; 
+    color: white;
+    font-size: 30px;
+    cursor:pointer;
+    transition: 0.5s;
+    text-align: center;
+    border-radius: 5%;
+    background-color: rgb(59, 59, 59);
+  }
+  * button:hover {
+    box-shadow: 0px 6px 8px 2px rgba(0, 0, 0, 0.5);
+    font-size: 32px;
+    transition: 0.015s;
+  }
+
+  #equals {
+    grid-column: span 2;
+    filter: brightness(110%);
+  }
