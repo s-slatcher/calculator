@@ -9,58 +9,102 @@ buttons.forEach(element => {
     })
 });
 
-
-
 const input = function(btn){
     let value = valDisplay.textContent;
     let expr = exprDisplay.textContent;
 
     if (btn.matches(".value")){
-        valueInput(btn.id, value);
-    } else if (btn.matches(".operator")){
-        operatorInput(btn.id, value, expr);
+        valDisplay.textContent = updateValue(btn.id, value);
+    }
+    if (btn.matches(".operator")){
+        if (expr !== ""){
+            valDisplay.textContent = evaluateStr(expr + " " + value)
+            value = valDisplay.textContent;
+        } 
+        exprDisplay.textContent = operatorInput(btn.id, value, expr);
+        valDisplay.textContent = "0";
     } 
-    
+    if (btn.matches("#equals")){
+        valDisplay.textContent = evaluateStr(expr + " " + value);
+        exprDisplay.textContent = "";
+    }
+    if (btn.matches("#all-clear")){
+        allClear();
+    }
 }
 
-function valueInput(btnId, value) {
-    let updateValue = new UpdateValue(value);
+function allClear(){
+    valDisplay.textContent = "0";
+    exprDisplay.textContent = "";
+}
 
-    if (btnId === "decimal"){
-        valDisplay.textContent = updateValue.insertDecimal();
-    } else if (btnId === "toggle-sign"){
-        valDisplay.textContent = updateValue.toggleNegative();
+function updateValue(btnId, value) {
+    if (btnId === "toggle-sign"){
+        return toggleNegative(value);
+    } else if (btnId === "clear") {
+        return clear(value);
+    } else if (btnId === ".") {
+        return addDecimal(value);
     } else {
-        valDisplay.textContent = updateValue.insertNumber(btnId);
+        return addNum(value,btnId)
     }
+}
+
+
+function toggleNegative(value){
+    return value.charAt(0) === "-" 
+        ? value.substring(1)
+        : `-${value}`;
+}
+
+function addDecimal(value){
+    return value.includes(".") 
+        ? value
+        : `${value}.`
+}
+
+function addNum(value, btnId){
+    return value === "0" 
+        ? btnId
+        : `${value}${btnId}`
+}
+
+function clear(value){
+    cutValue = value.substring(0,value.length-1);
+    console.log(cutValue);
+    const lastChar = cutValue.charAt(cutValue.length-1);
+    console.log(lastChar)
+    if (lastChar === "." || lastChar === "-"){
+        cutValue = clear(cutValue);
+        console.log(". or -")
+    }
+    if (lastChar === "") {
+        console.log("empty reset")
+        cutValue = "0";
+    }
+    return cutValue;
 }
 
 function operatorInput(btnId, value, expr){
-    if (expr !== "") {
-        let exprStr = expr+" "+value
-        valDisplay.textContent = evaluateStr(exprStr);
-        value = valDisplay.textContent;
-    }
-
     let op;
     switch (btnId) {
         case "multiply":
-            op = "x"
+            op = " x"
             break;
         case "divide":
-            op = "/";
+            op = " /";
             break;
         case "plus":
-            op = "+";
+            op = " +";
             break;
         case "minus":
-            op = "-";
+            op = " -";
             break;
+        default:
+            op = ""
     }
+    return `${value}${op}`;
     
-    exprDisplay.textContent = value + " " + op;
-    valDisplay.textContent = "0"
-   
 }
 
 function evaluateStr(expr){
@@ -79,44 +123,22 @@ function evaluateStr(expr){
         case "+":
             answer = (+arr[0] + +arr[2]);
             break;
+        default:
+            answer = +arr[0]
     }
     answer = round(answer).toString();
     addHistory(`${expr} = ${answer}`);
     return answer;
 }
 
-
-class UpdateValue {
-    constructor(value){
-        this.value = value;
-        this.isZero = this.value === "0";
-        this.isNegative = this.value.charAt(0) === "-";
-        this.isFractional = this.value.includes(".");
-    }
-    insertNumber(num) {
-        return this.isZero ?
-            num : this.value + num;
-    }
-    toggleNegative(){
-        return this.isNegative ? 
-            this.value.substring(1) : `-${this.value}`;
-    }
-    insertDecimal(){
-        return this.isFractional ?
-            this.value : `${this.value}.`;
-    }
-}
-
-
-/// small secondary functions
-
 function round(num) { 
-    return +(Math.round(num + "e+8")  + "e-8");
+    return +(Math.round(num + "e+6")  + "e-6");
 }
 
 function addHistory(str) {
     const expr = document.createElement("p");
     expr.textContent = str;
     history.appendChild(expr);
+    history.scrollTop = history.scrollHeight;
 }
 
